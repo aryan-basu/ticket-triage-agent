@@ -1,0 +1,31 @@
+spring:
+  application.name: ticket-triage-agent
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY:}
+        chat.options:
+          model: ${GEMINI_MODEL:gemini-3.5-flash-lite}
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/practice_db}
+    username: ${DB_USERNAME:devuser}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate.ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+server.port: ${SERVER_PORT:8081}
+springdoc:
+  api-docs.path: /v3/api-docs
+  swagger-ui.path: /swagger-ui/index.html
+
+app:
+  triage:
+    max-description-words: ${TRIAGE_MAX_DESCRIPTION_WORDS:300}
+    confidence-review-threshold: ${TRIAGE_CONFIDENCE_REVIEW_THRESHOLD:0.70}
+    request-timeout-seconds: ${TRIAGE_REQUEST_TIMEOUT_SECONDS:90}
+    fast-model: ${GEMINI_FAST_MODEL:${GEMINI_MODEL:gemini-3.5-flash-lite}}
+    strong-model: ${GEMINI_STRONG_MODEL:gemini-3.5-flash-lite}
+    fallback-model: ${GEMINI_FALLBACK_MODEL:gemini-3.1-flash-lite}
+    max-retries: ${TRIAGE_MAX_RETRIES:1}
